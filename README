@@ -1,0 +1,98 @@
+This is an Urban Novel framework.
+
+An urban novel is a novel that requires the reader to travel around to get new pieces of the story. This is done by the author putting up QR codes in various places, and providing hints in the novel about where the new pieces of the story may be.
+
+The content is statically hosted with each part of the story containing a random UUID in the path. There's some extra JS that we insert into pages so that the story location and new hints can be obtained.
+
+Here's how the zones are defined:
+
+#+BEGIN_SRC js
+{
+  "fountain": {
+    "info": {
+      "name": "Goat Fountain",
+      "description": "A mysterious fountain...",
+      "icon": "zones/fountain/fountain.png"
+    }
+    "story": {
+      "uuid": "1",
+      "path": "zones/fountain/story",
+    },
+    "hint": {
+      "uuid": "1h",
+      "path": "zones/fountain/hint"
+    }
+  },
+  "house": {
+    "info": {
+      "name": "Abandoned House",
+      "description": "A house where no one sleeps",
+      "icon": "zones/house/house.png"
+    }
+    "story": {
+      "uuid": "2",
+      "path": "zones/house/story",
+    },
+    "hint": {
+      "uuid": "2h",
+      "path": "zones/house/hint"
+    }
+  }
+}
+#+END_SRC
+
+These zones get built out into stories in html. You can use anything, but I recommend using ink to build the html. https://www.inklestudios.com/ink/
+
+Here's how the directory structure is laid out:
+
+#+BEGIN_SRC bash
+config.json
+zones.json
+zones/fountain/fountain.png
+zones/fountain/hint/hint.html
+zones/fountain/story/index.html
+zones/house/house.png
+zones/house/hint/index.html
+zones/house/story/index.html
+#+END_SRC
+
+When this is compiled Urban Novel will make a 'build' directory like this:
+
+#+BEGIN_SRC bash
+build/index.html
+build/js/urbanovel.js
+build/hint/1/index.html
+build/hint/2/index.html
+build/story/1/index.html
+build/story/2/index.html
+build/cheat.html
+build/qrcodes/fountain.png
+build/qrcodes/house.png
+#+END_SRC
+
+When the user scans a URL we will go to that zones' story. There will be some client-side JS that stores the game state.
+
+#+BEGIN_SRC js
+{
+  hints: {
+    fountain: "hint/1h",
+    house: "hint/2h"
+  },
+  story: {
+    fountain: null,
+    house: "story/1"
+  }
+}
+#+END_SRC
+
+The config will look something like this:
+
+#+BEGIN_SRC 
+{
+  name: "Underground River",
+  domain: "undergroundriver.com",
+  contact: "@redmountainman1"
+  config: "config.json",
+  zones: "zones.json"
+}  
+#+END_SRC
