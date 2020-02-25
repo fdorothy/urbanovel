@@ -1,0 +1,7 @@
+.urb-zone-link {
+    display: none;
+}
+
+.urb-visited .urb-zone-link {
+    display: initial;
+}
