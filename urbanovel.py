@@ -74,6 +74,7 @@ def build_cheat(config, zones):
 
 def build_common(config, zones):
     shutil.copytree(os.path.join(BASE_PATH, "scripts"), "build/scripts")
+    shutil.copytree(os.path.join(BASE_PATH, "css"), "build/css")
     shutil.copy(os.path.join(template_path(), "reset.html"), "build")
     build_main(config, zones)
     build_cheat(config, zones)
