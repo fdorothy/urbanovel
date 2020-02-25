@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script type="text/javascript" src="scripts/urbanovel.js"></script>
+  </head>
+  {{#config}}
+  <h1>{{name}}</h1>
+  {{/config}}
+  <div class="urb-zones">
+    {{#zones}}
+    <div class="urb-zone">
+      <h2>{{name}}</h2>
+      <p>{{description}}</p>
+      <p><a href="{{hit}}">visit</a> or <a href="{{hint}}">see hint</a></p>
+    </div>
+    {{/zones}}
+  </div>
+</html>

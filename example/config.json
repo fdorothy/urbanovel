@@ -1,6 +1,6 @@
 {
   "name": "Underground River",
-  "domain": "undergroundriver.com",
+  "domain": "localhost:9080",
   "contact": "@redmountainman1",
   "zones": "zones.json"
 }  

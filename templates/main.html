@@ -1,3 +1,21 @@
 <html>
-  main controller
+  <head>
+    <script type="text/javascript" src="scripts/urbanovel.js"></script>
+  </head>
+  {{#config}}
+  <h1>{{name}} (<a href="reset.html">reset game</a> or <a href="cheat.html">cheat</a>)</h1>
+  {{/config}}
+  <div class="urb-zones">
+    {{#zones}}
+    <div class="urb-zone" id="urb-zone-{{id}}">
+      <h2>{{name}}</h2>
+      <p>{{description}}</p>
+      <p><a href="" class="urb-zone-link">explore</a></p>
+    </div>
+    {{/zones}}
+  </div>
+  <script>
+    urb_load_config()
+    urb_fill_zones()
+  </script>
 </html>
