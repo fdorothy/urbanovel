@@ -5,3 +5,7 @@
 .urb-visited .urb-zone-link {
     display: initial;
 }
+
+.urb-hidden {
+    display: none;
+}

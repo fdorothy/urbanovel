@@ -56,8 +56,12 @@ def build_nodes(config, zones, nodes):
         os.makedirs(base)
 
         # write node's information
-        data = {"type": "node", "name": name, "path": node["path"]}
+        data = {"type": "node", "name": name}
         write_json(os.path.join(base, "data.json"), data)
+
+        # copy the story files to the node
+        storypath = os.path.join(base, "story")
+        shutil.copytree(node["path"], storypath)
 
         # write places you can go from the node
         for n in node["next"]:

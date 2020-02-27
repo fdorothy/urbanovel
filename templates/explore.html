@@ -3,7 +3,12 @@
     <script type="text/javascript" src="scripts/urbanovel.js"></script>
     <link rel="stylesheet" href="css/urbanovel.css">
   </head>
-  <h1>Exploring...</h1>
+  <h1 id="urb-header">Loading...</h1>
+  <p id="urb-status"></p>
+  <div class="urb-nav">
+    <a href="index.html">home</a>
+    <a href="" id="urb-explore" class="urb-hidden">explore</a>
+  </div>
   <script>
     urb_load_config()
     urb_explore()
