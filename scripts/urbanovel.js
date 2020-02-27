@@ -74,11 +74,21 @@ function urb_push_history(key) {
   )
 }
 
+function urb_valid_location(str) {
+  const regex = /[A-Ba-z0-9\-]+/
+  console.log(regex.test(str))
+  return str === null || regex.test(str)
+}
+
 function urb_explore() {
   const queryString = window.location.search.substring(1);
   const urlParams = new URLSearchParams(queryString);
   const location = urlParams.get("location")
   window.history.replaceState({}, "Urban Novel", "index.html")
+  if (!urb_valid_location(location)) {
+    urb_go_home(1000)
+    return
+  }
 
   let current_node = urb_game["node"]
   if (current_node == null) {
