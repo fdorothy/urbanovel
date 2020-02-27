@@ -1,32 +1,12 @@
 {
   "fountain": {
-    "info": {
-      "name": "Goat Fountain",
-      "description": "A mysterious fountain...",
-      "icon": "zones/fountain/fountain.png"
-    },
-    "story": {
-      "uuid": "1",
-      "path": "zones/fountain/story"
-    },
-    "hint": {
-      "uuid": "1h",
-      "path": "zones/fountain/hint"
-    }
+    "key": "1",
+    "name": "Goat Fountain",
+    "description": "A mysterious fountain..."
   },
   "house": {
-    "info": {
-      "name": "Abandoned House",
-      "description": "A house where no one sleeps",
-      "icon": "zones/house/house.png"
-    },
-    "story": {
-      "uuid": "2",
-      "path": "zones/house/story"
-    },
-    "hint": {
-      "uuid": "2h",
-      "path": "zones/house/hint"
-    }
+    "key": "2",
+    "name": "Abandoned House",
+    "description": "A house where no one sleeps"
   }
 }

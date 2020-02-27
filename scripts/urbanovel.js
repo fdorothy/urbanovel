@@ -1,11 +1,9 @@
-var urb_game = {"hits": {}}
-
-function urb_hit(name, uuid) {
-  const game = localStorage.getItem("urb-game")
-  urb_game = JSON.parse(game)
-  urb_game["hits"][name] = uuid
-  urb_save()
+const initial_game = {
+  "node": null,
+  "history": []
 }
+
+var urb_game = initial_game
 
 function urb_go_home(delay) {
   setTimeout(() => {
@@ -19,7 +17,7 @@ function urb_main() {
 }
 
 function urb_init_game() {
-  urb_game = {"hits": {}}
+  urb_game = initial_game
 }
 
 function urb_save() {
@@ -47,4 +45,67 @@ function urb_fill_zones() {
       link.href = "story/" + uuid
     }
   })
+}
+
+function urb_fetch_json(url) {
+  return (
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        return response.json();
+      })
+  )
+}
+
+function urb_fetch_node(key) {
+  return urb_fetch_json("nodes" + "/" + key + "/data.json")
+}
+
+function urb_push_history(key) {
+  return (
+    urb_fetch_node(key)
+      .then(node => {
+        urb_game["node"] = key
+        urb_game["history"].push(node)
+        urb_save()
+      })
+  )
+}
+
+function urb_explore() {
+  const queryString = window.location.search.substring(1);
+  const urlParams = new URLSearchParams(queryString);
+  const location = urlParams.get("location")
+  window.history.replaceState({}, "Urban Novel", "index.html")
+
+  let current_node = urb_game["node"]
+  if (current_node == null) {
+    // new game, no location needed
+    console.log("new game")
+    urb_push_history("start")
+      .then(() => urb_go_home(1000))
+  } else {
+    if (location) {
+      const path = "nodes" + "/" + current_node + "/" + location + "/data.json"
+      urb_fetch_json(path)
+        .then(json => {
+          console.log("got data from exploring: " + json)
+          if (json["next"]) {
+            urb_push_history(json["next"])
+              .then(() => urb_go_home(1000))
+          } else {
+            urb_go_home(1000)
+          }
+        })
+        .catch(err => {
+          console.log("error while exploring: " + err)
+          urb_go_home(1000)
+        })
+    } else {
+      console.log("no location passed in")
+      urb_go_home(1000)
+    }
+  }
 }
