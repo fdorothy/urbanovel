@@ -1,7 +1,7 @@
 {
   "intro": {
     "key": "start",
-    "path": "story/intro",
+    "ink": "story/intro/intro.js",
     "next": [
       {
         "zone": "house",
@@ -11,7 +11,7 @@
   },
   "story1": {
     "key": "story_key1",
-    "path": "story/story1",
+    "ink": "story/intro/intro.js",
     "next": [
       {
         "zone": "fountain",
@@ -22,7 +22,7 @@
   "story2": {
     "key": "story_key2",
     "name": "story2",
-    "path": "story/story2",
+    "ink": "story/intro/intro.js",
     "next": []
   }
 }

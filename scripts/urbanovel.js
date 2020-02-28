@@ -97,7 +97,7 @@ function urb_set_text(id, text) {
 const urb_set_status = (text) => urb_set_text("urb-status", text)
 const urb_set_header = (text) => urb_set_text("urb-header", text)
 
-const urb_node_story = (nodename) => 'nodes/' + nodename + '/story'
+const urb_node_story = (nodename) => 'nodes/' + nodename + '/ink.html'
 
 function urb_show_intro() {
   urb_set_header("New Game")

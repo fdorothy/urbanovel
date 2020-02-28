@@ -25,6 +25,7 @@ def template(name):
 CHEAT = template("cheat.html")
 MAIN = template("main.html")
 EXPLORE = template("explore.html")
+INK = template("ink.html")
 
 def render(template, dst, data):
     result = pystache.render(template, data)
@@ -55,13 +56,18 @@ def build_nodes(config, zones, nodes):
         base = "build/nodes/%s" % node["key"]
         os.makedirs(base)
 
-        # write node's information
-        data = {"type": "node", "name": name}
-        write_json(os.path.join(base, "data.json"), data)
+        # copy the ink files to the node
+        ink_url = os.path.join(base, "ink.js")
+        shutil.copyfile(node["ink"], ink_url)
 
-        # copy the story files to the node
-        storypath = os.path.join(base, "story")
-        shutil.copytree(node["path"], storypath)
+        # write out the ink html file
+        data = {"config": config, "node": node, "ink_url": "ink.js"}
+        story_url = os.path.join(base, "ink.html")
+        render(INK, story_url, data)
+
+        # write node's information
+        data = {"type": "node", "name": name, "ink": ink_url, "story": story_url}
+        write_json(os.path.join(base, "data.json"), data)
 
         # write places you can go from the node
         for n in node["next"]:
