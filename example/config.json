@@ -2,6 +2,6 @@
   "name": "Underground River",
   "domain": "localhost:9080",
   "contact": "@redmountainman1",
-  "zones": "zones.json",
+  "locations": "locations.json",
   "nodes": "nodes.json"
 }  

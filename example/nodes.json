@@ -4,7 +4,7 @@
     "ink": "story/intro/intro.js",
     "next": [
       {
-        "zone": "house",
+        "location": "house",
         "node": "story1"
       }
     ]
@@ -14,7 +14,7 @@
     "ink": "story/intro/intro.js",
     "next": [
       {
-        "zone": "fountain",
+        "location": "fountain",
         "node": "story2"
       }
     ]

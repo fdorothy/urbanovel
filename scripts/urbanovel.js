@@ -36,7 +36,7 @@ function urb_fill_history() {
   const history_div = document.getElementsByClassName("urb-history")[0]
   urb_game.history.forEach(node => {
     const story_div = document.createElement("div")
-    story_div.innerHTML = "<h2>" + node.name + "</h2><p>Click <a href=" + node["story"] + "here</a>" + " to read"
+    story_div.innerHTML = "<h2>" + node.name + "</h2><p>Click <a href=" + node["story"] + ">here</a> to read"
     history_div.appendChild(story_div)
   })
 }

@@ -1,8 +1,8 @@
-.urb-zone-link {
+.urb-location-link {
     display: none;
 }
 
-.urb-visited .urb-zone-link {
+.urb-visited .urb-location-link {
     display: initial;
 }
 

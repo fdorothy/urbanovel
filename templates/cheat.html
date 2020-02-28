@@ -5,13 +5,13 @@
   {{#config}}
   <h1>{{name}}</h1>
   {{/config}}
-  <div class="urb-zones">
-    {{#zones}}
-    <div class="urb-zone">
+  <div class="urb-locations">
+    {{#locations}}
+    <div class="urb-location">
       <h2>{{name}}</h2>
       <p>{{description}}</p>
       <p><a href="explore.html?location={{key}}">visit</a> or <a href="{{hint}}">see hint</a></p>
     </div>
-    {{/zones}}
+    {{/locations}}
   </div>
 </html>
