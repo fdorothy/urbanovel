@@ -32,18 +32,12 @@ function urb_load_config() {
   }
 }
 
-function urb_fill_zones() {
-  Object.keys(urb_game.hits).map((key) => {
-    let elem = document.getElementById("urb-zone-" + key)
-    if (elem) {
-      elem.classList.add('urb-visited')
-    }
-    const uuid = urb_game.hits[key]
-    const links = elem.getElementsByClassName("urb-zone-link")
-    for (let i=0; i<links.length; i++) {
-      const link = links[i]
-      link.href = "story/" + uuid
-    }
+function urb_fill_history() {
+  const history_div = document.getElementsByClassName("urb-history")[0]
+  urb_game.history.forEach(node => {
+    const story_div = document.createElement("div")
+    story_div.innerHTML = "<h2>" + node.name + "</h2><p>Click <a href=" + node["story"] + "here</a>" + " to read"
+    history_div.appendChild(story_div)
   })
 }
 

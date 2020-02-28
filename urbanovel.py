@@ -62,10 +62,11 @@ def build_nodes(config, zones, nodes):
 
         # write out the ink html file
         data = {"config": config, "node": node, "ink_url": "ink.js"}
-        story_url = os.path.join(base, "ink.html")
-        render(INK, story_url, data)
+        story_path = os.path.join(base, "ink.html")
+        render(INK, story_path, data)
 
         # write node's information
+        story_url = os.path.join("nodes", node["key"], "ink.html")
         data = {"type": "node", "name": name, "ink": ink_url, "story": story_url}
         write_json(os.path.join(base, "data.json"), data)
 
