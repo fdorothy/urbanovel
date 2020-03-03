@@ -28,5 +28,11 @@
     "name": "Helicopter Landing Pad",
     "description": "A helicopter landing pad on top of the office building",
     "story": "locations/helicopter/helicopter.js"
+  },
+  "unknown": {
+    "key": "unknown",
+    "name": "Unknown location",
+    "description": "...?",
+    "story": "locations/unknown/unknown.js"
   }
 }
