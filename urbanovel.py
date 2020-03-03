@@ -45,7 +45,6 @@ def get_node_key(nodes, name):
     return nodes[name]["key"]
 
 def build_locations(config, locations):
-    os.makedirs("build/images/locations")
     os.makedirs("build/locations")
     for name, location in locations.items():
         location_path = os.path.join("build", "locations", location["key"] + ".json")

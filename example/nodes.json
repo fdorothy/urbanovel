@@ -4,25 +4,44 @@
     "ink": "story/intro/intro.js",
     "next": [
       {
-        "location": "house",
-        "node": "story1"
+        "location": "recroom",
+        "node": "search_rec"
       }
     ]
   },
-  "story1": {
-    "key": "story_key1",
-    "ink": "story/intro/intro.js",
+  "search_rec": {
+    "key": "search_rec",
+    "ink": "story/search_rec/search_rec.js",
     "next": [
       {
-        "location": "fountain",
-        "node": "story2"
+        "location": "business_card",
+        "node": "find_card"
       }
     ]
   },
-  "story2": {
-    "key": "story_key2",
-    "name": "story2",
-    "ink": "story/intro/intro.js",
+  "find_card": {
+    "key": "find_card",
+    "ink": "story/find_card/find_card.js",
+    "next": [
+      {
+        "location": "office",
+        "node": "search_office"
+      }
+    ]
+  },
+  "search_office": {
+    "key": "search_office",
+    "ink": "story/search_office/search_office.js",
+    "next": [
+      {
+        "location": "helicopter",
+        "node": "escape_roof"
+      }
+    ]
+  },
+  "escape_roof": {
+    "key": "escape_roof",
+    "ink": "story/escape_roof/escape_roof.js",
     "next": []
   }
 }

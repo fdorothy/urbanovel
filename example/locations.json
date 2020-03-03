@@ -1,12 +1,32 @@
 {
-  "fountain": {
+  "lobby": {
     "key": "1",
-    "name": "Goat Fountain",
-    "description": "A mysterious fountain..."
+    "name": "The Lobby",
+    "description": "The office park lobby",
+    "story": "locations/lobby/lobby.js"
   },
-  "house": {
+  "recroom": {
     "key": "2",
-    "name": "Abandoned House",
-    "description": "A house where no one sleeps"
+    "name": "Recreation Room",
+    "description": "The recreation room",
+    "story": "locations/recroom/recroom.js"
+  },
+  "business_card": {
+    "key": "3",
+    "name": "Business Card",
+    "description": "A business card laying next to a recently murdered man",
+    "story": "locations/business_card/business_card.js"
+  },
+  "office": {
+    "key": "4",
+    "name": "Parasol, inc. office",
+    "description": "An office belonging to Parasol, inc",
+    "story": "locations/office/office.js"
+  },
+  "helicopter": {
+    "key": "5",
+    "name": "Helicopter Landing Pad",
+    "description": "A helicopter landing pad on top of the office building",
+    "story": "locations/helicopter/helicopter.js"
   }
 }
