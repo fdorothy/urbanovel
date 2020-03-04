@@ -108,10 +108,14 @@ const urb_show_nothing = () => window.location.href = "/locations/unknown/ink.ht
 
 function urb_show_location(location) {
   const path = "/locations/" + location + "/ink.js"
-  urb_fetch_json(path)
-    .then(data => {
-      const path = "/locations/" + location + "/ink.html"
-      window.location.href = path
+  fetch(path)
+    .then((response) => {
+        if (!response.ok) {
+          urb_show_nothing()
+        } else {
+          const path = "/locations/" + location + "/ink.html"
+          window.location.href = path
+        }
     })
     .catch(err => urb_show_nothing())
 }
@@ -125,7 +129,7 @@ function urb_show_node(location, node) {
         urb_push_history(json["next"])
           .then(node => window.location.href = node["story"])
       } else {
-        urb_show_nothing()
+        urb_show_location(location)
       }
     })
     .catch(err => urb_show_location(location))
