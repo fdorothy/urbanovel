@@ -47,8 +47,19 @@ def get_node_key(nodes, name):
 def build_locations(config, locations):
     os.makedirs("build/locations")
     for name, location in locations.items():
-        location_path = os.path.join("build", "locations", location["key"] + ".json")
+        base = os.path.join("build", "locations", location["key"])
+        os.makedirs(base)
+        location_path = base + ".json"
         write_json(location_path, location)
+
+        # copy the ink files to the node
+        ink_url = os.path.join(base, "ink.js")
+        shutil.copyfile(location["ink"], ink_url)
+
+        # write out the ink html file
+        data = {"config": config, "location": location, "ink_url": "ink.js"}
+        story_path = os.path.join(base, "ink.html")
+        render(INK, story_path, data)
 
 def build_nodes(config, locations, nodes):
     for name, node in nodes.items():

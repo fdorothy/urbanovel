@@ -64,6 +64,7 @@ function urb_push_history(key) {
         urb_game["node"] = key
         urb_game["history"].push(node)
         urb_save()
+        return node
       })
   )
 }
@@ -103,9 +104,31 @@ function urb_show_found_something() {
   urb_set_status("You appeared to have found something new! Click explore to see what it is, or you can read it later the game's home screen")
 }
 
-function urb_show_nothing() {
-  urb_set_header("Nothing here")
-  urb_set_status("There's nothing here. Try a different location. Want a hint? Try going home and read carefully in the stories")
+const urb_show_nothing = () => window.location.href = "/locations/unknown/ink.html"
+
+function urb_show_location(location) {
+  const path = "/locations/" + location + "/ink.js"
+  urb_fetch_json(path)
+    .then(data => {
+      const path = "/locations/" + location + "/ink.html"
+      window.location.href = path
+    })
+    .catch(err => urb_show_nothing())
+}
+
+function urb_show_node(location, node) {
+  const path = "nodes" + "/" + node + "/" + location + "/data.json"
+  urb_fetch_json(path)
+    .then(json => {
+      console.log("got data from exploring: " + json)
+      if (json["next"]) {
+        urb_push_history(json["next"])
+          .then(node => window.location.href = node["story"])
+      } else {
+        urb_show_nothing()
+      }
+    })
+    .catch(err => urb_show_location(location))
 }
 
 function urb_explore() {
@@ -114,8 +137,7 @@ function urb_explore() {
   const location = urlParams.get("location")
   window.history.replaceState({}, "Urban Novel", "index.html")
   if (!urb_valid_location(location)) {
-    urb_set_header("Uh oh...")
-    urb_set_status("Something went wrong. This appears to be an invalid QR code. More than likely the QR code was printed wrong, let us know where you are and what happened.")
+    urb_show_nothing()
     return
   }
 
@@ -124,26 +146,10 @@ function urb_explore() {
     // new game, no location needed
     console.log("new game")
     urb_push_history("start")
-      .then(() => urb_show_intro())
-      .then(() => urb_show_link("urb-explore", urb_node_story(urb_game.node)))
+      .then(node => window.location.href = node["story"])
   } else {
     if (location) {
-      const path = "nodes" + "/" + current_node + "/" + location + "/data.json"
-      urb_fetch_json(path)
-        .then(json => {
-          console.log("got data from exploring: " + json)
-          if (json["next"]) {
-            urb_push_history(json["next"])
-              .then(() => urb_show_found_something())
-              .then(() => urb_show_link("urb-explore", urb_node_story(urb_game.node)))
-          } else {
-            urb_show_nothing()
-          }
-        })
-        .catch(err => {
-          console.log("error while exploring: " + err)
-          urb_show_nothing()
-        })
+      urb_show_node(location, current_node)
     } else {
       console.log("no location passed in")
       urb_show_nothing()
