@@ -4,6 +4,7 @@ import sys
 import os
 import shutil
 import pystache
+import pyqrcode
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -88,7 +89,14 @@ def build_nodes(config, locations, nodes):
             data = {"type": "next", "next": get_node_key(nodes, n["node"])}
             write_json(os.path.join(npath, "data.json"), data)
 
+def build_qrcode_image(config, location):
+    url = config["domain"] + '/explore.html?location=%s' % location["key"]
+    qr = pyqrcode.create(url)
+    qr.svg("build/images/qrcodes/%s.svg" % location["key"], scale=4)
+    return "/images/qrcodes/%s.svg"
+
 def build_qrcodes(config, locations):
+    os.makedirs("build/images/qrcodes")
     location_data = []
     for key, location in locations.items():
         extras = {
@@ -96,6 +104,7 @@ def build_qrcodes(config, locations):
         }
         data = dict(location, **extras)
         location_data.append(data)
+        build_qrcode_image(config, location)
     render(QRCODES, "build/qrcodes.html", {"locations": location_data, "config": config})
 
 def build_common(config, locations):
