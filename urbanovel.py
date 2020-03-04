@@ -22,7 +22,7 @@ def template(name):
     with open(path) as f:
         return pystache.parse(f.read())
 
-CHEAT = template("cheat.html")
+QRCODES = template("qrcodes.html")
 MAIN = template("main.html")
 EXPLORE = template("explore.html")
 INK = template("ink.html")
@@ -88,7 +88,7 @@ def build_nodes(config, locations, nodes):
             data = {"type": "next", "next": get_node_key(nodes, n["node"])}
             write_json(os.path.join(npath, "data.json"), data)
 
-def build_cheat(config, locations):
+def build_qrcodes(config, locations):
     location_data = []
     for key, location in locations.items():
         extras = {
@@ -96,7 +96,7 @@ def build_cheat(config, locations):
         }
         data = dict(location, **extras)
         location_data.append(data)
-    render(CHEAT, "build/cheat.html", {"locations": location_data, "config": config})
+    render(QRCODES, "build/qrcodes.html", {"locations": location_data, "config": config})
 
 def build_common(config, locations):
     shutil.copytree(os.path.join(BASE_PATH, "scripts"), "build/scripts")
@@ -113,4 +113,4 @@ if __name__ == '__main__':
     build_locations(config, locations)
     build_nodes(config, locations, nodes)
     build_common(config, locations)
-    build_cheat(config, locations)
+    build_qrcodes(config, locations)
