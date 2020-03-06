@@ -25,7 +25,9 @@ def template(name):
         return pystache.parse(f.read())
 
 QRCODES = template("qrcodes.html")
-MAIN = template("main.html")
+INDEX = template("index.html")
+RESET = template("reset.html")
+INK = template("ink.html")
 EXPLORE = template("explore.html")
 
 def render(template, dst, data):
@@ -105,9 +107,9 @@ def build_qrcodes(config, locations):
 def build_common(config, locations):
     shutil.copytree(os.path.join(BASE_PATH, "scripts"), "build/scripts")
     shutil.copytree(os.path.join(BASE_PATH, "css"), "build/css")
-    shutil.copy(os.path.join(template_path(), "reset.html"), "build")
-    shutil.copy(os.path.join(template_path(), "ink.html"), "build")
-    render(MAIN, "build/index.html", {"config": config})
+    render(INDEX, "build/index.html", {"config": config})
+    render(RESET, "build/reset.html", {"config": config})
+    render(INK, "build/ink.html", {"config": config})
     render(EXPLORE, "build/explore.html", {"config": config})
 
 if __name__ == '__main__':

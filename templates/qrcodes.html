@@ -1,18 +1,30 @@
 <html>
   <head>
     <script type="text/javascript" src="scripts/urbanovel.js"></script>
+    <link rel="stylesheet" href="css/ink.css">
+    <link rel="stylesheet" href="css/urbanovel.css">
   </head>
-  {{#config}}
-  <h1>{{name}}</h1>
-  {{/config}}
-  <div class="urb-locations">
-    {{#locations}}
-    <div class="urb-location">
-      <h2>{{name}}</h2>
-      <img src="/images/qrcodes/{{key}}.svg"/>
-      <p>{{description}}</p>
-      <p><a href="explore.html?location={{key}}">visit</a> or <a href="{{hint}}">see hint</a></p>
+
+
+  <div class="outerContainer">
+    <h3 class="written-in-ink">
+      <a href="index.html">journal</a> | <a href="qrcodes.html">locations</a> | <a href="reset.html">reset game</a>
+    </h3>
+    <div id="story" class="container">
+      {{#config}}
+      <div class="header">
+        <h1 id="urb-header">{{name}}</h1>
+        <h2 class="byline">QR Codes for each location</h2>
+      </div>
+      {{/config}}
+      {{#locations}}
+      <div class="urb-location">
+        <p>{{name}}</p>
+        <a href="explore.html?location={{key}}"><img src="/images/qrcodes/{{key}}.svg"/></a>
+        <p>{{description}}</p>
+      </div>
+      {{/locations}}
     </div>
-    {{/locations}}
   </div>
+
 </html>

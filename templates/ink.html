@@ -3,19 +3,23 @@
     <script type="text/javascript" src="/scripts/urbanovel.js"></script>
     <script type="text/javascript" src="/scripts/ink/ink.js"></script>
     <script type="text/javascript" src="/scripts/ink/main.js"></script>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/ink.css">
     <link rel="stylesheet" href="/css/urbanovel.css">
   </head>
 
+  {{#config}}
   <div class="outerContainer">
-    <h3 class="written-in-ink"><a href="index.html">journal</a> | <a href="qrcodes.html">locations</a></h3>
+    <h3 class="written-in-ink">
+      <a href="index.html">journal</a> | <a href="qrcodes.html">locations</a> | <a href="reset.html">reset game</a>
+    </h3>
     <div id="story" class="container">
       <div class="header">
-        <h1 id="urb-header">Loading...</h1>
-        <h2 class="byline"></h2>
+        <h1>{{name}}</h1>
+        <h2 class="byline" id="urb-header">Loading...</h2>
       </div>
     </div>
   </div>
+  {{/config}}
   <script>
     const qs = window.location.search
     const p = new URLSearchParams(qs)

@@ -26,7 +26,7 @@ function urb_fill_history() {
   urb_game.history.forEach(node => {
     const story_div = document.createElement("div")
     const link = urb_ink_link(node)
-    story_div.innerHTML = "<h2>" + node.name + "</h2><p>Click <a href=" + link + ">here</a> to read"
+    story_div.innerHTML = "<p class=\"choice\"><a href=" + link + ">" + node.name + "</a></p>"
     history_div.appendChild(story_div)
   })
 }
