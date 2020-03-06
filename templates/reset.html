@@ -6,9 +6,7 @@
   </head>
   {{#config}}
   <div class="outerContainer">
-    <h3 class="written-in-ink">
-      <a href="index.html">journal</a> | <a href="qrcodes.html">locations</a> | <a href="reset.html">reset game</a>
-    </h3>
+    {{#partials}}{{&nav}}{{/partials}}
     <div id="story" class="container">
       <div class="header">
         <h1 id="urb-header">{{name}}</h1>

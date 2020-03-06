@@ -24,17 +24,20 @@ def template(name):
     with open(path) as f:
         return pystache.parse(f.read())
 
+def render(template, dst, data):
+    result = pystache.render(template, {**data, 'partials': PARTIALS})
+    f = open(dst, "w")
+    f.write(result)
+    f.close()
+
+PARTIALS = {
+    'nav': pystache.render(template("partials/nav.html"), {})
+}
 QRCODES = template("qrcodes.html")
 INDEX = template("index.html")
 RESET = template("reset.html")
 INK = template("ink.html")
 EXPLORE = template("explore.html")
-
-def render(template, dst, data):
-    result = pystache.render(template, data)
-    f = open(dst, "w")
-    f.write(result)
-    f.close()
 
 def build_ink(src, dst):
     subprocess.run(["inklecate", src])

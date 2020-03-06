@@ -34,5 +34,11 @@
     "name": "Unknown location",
     "description": "...?",
     "ink": "locations/unknown/unknown.ink"
+  },
+  "help": {
+    "key": "help",
+    "name": "Help",
+    "description": "Help documentation",
+    "ink": "locations/help/help.ink"
   }
 }

@@ -19,12 +19,9 @@
   </div>
   {{/config}}
   <script>
-    const qs = window.location.search
-    const p = new URLSearchParams(qs)
-    const data = JSON.parse(atob(p.get('data')))
-    urb_fetch_json(data["ink"]).then((ink) => {
+    urb_fetch_json("locations/help/ink.json").then((ink) => {
       urb_delay(() => {
-        urb_set_header(data["name"])
+        urb_set_header("Help")
         const {removeAll} = play_story(ink, () => {
           removeAll("p")
           removeAll("img")
