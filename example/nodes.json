@@ -1,7 +1,7 @@
 {
   "start": {
     "hide": false,
-    "ink": "story/intro/intro.ink",
+    "ink": "story/intro.ink",
     "name": "Introduction",
     "next": [
       {
@@ -11,7 +11,7 @@
     ]
   },
   "search_rec": {
-    "ink": "story/search_rec/search_rec.ink",
+    "ink": "story/search_rec.ink",
     "name": "Searching the Recreation Room",
     "next": [
       {
@@ -21,7 +21,7 @@
     ]
   },
   "find_card": {
-    "ink": "story/find_card/find_card.ink",
+    "ink": "story/find_card.ink",
     "name": "Finding the Business Card",
     "next": [
       {
@@ -31,7 +31,7 @@
     ]
   },
   "search_office": {
-    "ink": "story/search_office/search_office.ink",
+    "ink": "story/search_office.ink",
     "name": "Parasol, INC",
     "next": [
       {
@@ -42,7 +42,7 @@
   },
   "escape_roof": {
     "name": "Helicopter Escape",
-    "ink": "story/escape_roof/escape_roof.ink",
+    "ink": "story/escape_roof.ink",
     "next": []
   }
 }
