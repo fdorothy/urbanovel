@@ -1,4 +1,4 @@
-(function(storyContent) {
+function play_story(storyContent, onDone = null) {
 
     // Create ink story from the content using inkjs
     var story = new inkjs.Story(storyContent);
@@ -101,6 +101,12 @@
             // Fade in paragraph after a short delay
             showAfter(delay, paragraphElement);
             delay += 200.0;
+        }
+
+        // If we've reached the end then we will notify the
+        // caller of the script so that they can take some action
+        if (onDone && story.currentChoices.length === 0) {
+          onDone()
         }
 
         // Create HTML choices from ink choices
@@ -237,4 +243,5 @@
         return null;
     }
 
-})(storyContent);
+  return {removeAll}
+}

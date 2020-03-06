@@ -2,5 +2,5 @@
 DIRNAME=`dirname $0`
 $DIRNAME/urbanovel.py
 pushd build
-static-server ./
+static-server ./ --no-cache
 popd

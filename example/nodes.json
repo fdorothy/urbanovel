@@ -1,7 +1,8 @@
 {
   "intro": {
     "key": "start",
-    "ink": "story/intro/intro.js",
+    "ink": "story/intro/intro.ink",
+    "name": "Introduction",
     "next": [
       {
         "location": "recroom",
@@ -11,7 +12,8 @@
   },
   "search_rec": {
     "key": "search_rec",
-    "ink": "story/search_rec/search_rec.js",
+    "ink": "story/search_rec/search_rec.ink",
+    "name": "Searching the Recreation Room",
     "next": [
       {
         "location": "business_card",
@@ -21,7 +23,8 @@
   },
   "find_card": {
     "key": "find_card",
-    "ink": "story/find_card/find_card.js",
+    "ink": "story/find_card/find_card.ink",
+    "name": "Finding the Business Card",
     "next": [
       {
         "location": "office",
@@ -31,7 +34,8 @@
   },
   "search_office": {
     "key": "search_office",
-    "ink": "story/search_office/search_office.js",
+    "ink": "story/search_office/search_office.ink",
+    "name": "Parasol, INC",
     "next": [
       {
         "location": "helicopter",
@@ -41,7 +45,8 @@
   },
   "escape_roof": {
     "key": "escape_roof",
-    "ink": "story/escape_roof/escape_roof.js",
+    "name": "Helicopter Escape",
+    "ink": "story/escape_roof/escape_roof.ink",
     "next": []
   }
 }

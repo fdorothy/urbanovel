@@ -3,36 +3,36 @@
     "key": "1",
     "name": "The Lobby",
     "description": "The office park lobby",
-    "ink": "locations/lobby/lobby.js"
+    "ink": "locations/lobby/lobby.ink"
   },
   "recroom": {
     "key": "2",
     "name": "Recreation Room",
     "description": "The recreation room",
-    "ink": "locations/recroom/recroom.js"
+    "ink": "locations/recroom/recroom.ink"
   },
   "business_card": {
     "key": "3",
     "name": "Business Card",
     "description": "A business card laying next to a recently murdered man",
-    "ink": "locations/business_card/business_card.js"
+    "ink": "locations/business_card/business_card.ink"
   },
   "office": {
     "key": "4",
     "name": "Parasol, inc. office",
     "description": "An office belonging to Parasol, inc",
-    "ink": "locations/office/office.js"
+    "ink": "locations/office/office.ink"
   },
   "helicopter": {
     "key": "5",
     "name": "Helicopter Landing Pad",
     "description": "A helicopter landing pad on top of the office building",
-    "ink": "locations/helicopter/helicopter.js"
+    "ink": "locations/helicopter/helicopter.ink"
   },
   "unknown": {
     "key": "unknown",
     "name": "Unknown location",
     "description": "...?",
-    "ink": "locations/unknown/unknown.js"
+    "ink": "locations/unknown/unknown.ink"
   }
 }

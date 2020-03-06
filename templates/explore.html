@@ -1,16 +1,27 @@
 <html>
   <head>
-    <script type="text/javascript" src="scripts/urbanovel.js"></script>
-    <link rel="stylesheet" href="css/urbanovel.css">
+    <script type="text/javascript" src="/scripts/urbanovel.js"></script>
+    <link rel="stylesheet" href="/css/urbanovel.css">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
-  <h1 id="urb-header">Loading...</h1>
-  <p id="urb-status"></p>
-  <div class="urb-nav">
-    <a href="index.html">home</a>
-    <a href="" id="urb-explore" class="urb-hidden">explore</a>
+
+  <div class="outerContainer">
+    <h3 class="written-in-ink"><a href="index.html">journal</a></h3>
+    <div id="story" class="container">
+      <div class="header">
+        <h1 id="urb-header">Exploring...</h1>
+        <h2 class="byline"></h2>
+      </div>
+    </div>
   </div>
   <script>
     urb_load_config()
-    urb_explore()
+    urb_explore().then(data => {
+      urb_delay(() => {
+        if (data) {
+          urb_show_ink(data)
+        }
+      })
+    })
   </script>
 </html>

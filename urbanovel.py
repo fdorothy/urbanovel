@@ -5,6 +5,7 @@ import os
 import shutil
 import pystache
 import pyqrcode
+import subprocess
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -26,13 +27,16 @@ def template(name):
 QRCODES = template("qrcodes.html")
 MAIN = template("main.html")
 EXPLORE = template("explore.html")
-INK = template("ink.html")
 
 def render(template, dst, data):
     result = pystache.render(template, data)
     f = open(dst, "w")
     f.write(result)
     f.close()
+
+def build_ink(src, dst):
+    subprocess.run(["inklecate", src])
+    shutil.copyfile(src + ".json", dst)
 
 def write_json(dst, data):
     f = open(dst, "w")
@@ -50,35 +54,26 @@ def build_locations(config, locations):
     for name, location in locations.items():
         base = os.path.join("build", "locations", location["key"])
         os.makedirs(base)
-        location_path = base + ".json"
+
+        # build the ink files
+        build_ink(location["ink"], os.path.join(base, "ink.json"))
+
+        # write data about the location
+        location["ink"] = "locations/%s/ink.json" % location["key"]
+        location_path = os.path.join(base, "data.json")
         write_json(location_path, location)
-
-        # copy the ink files to the node
-        ink_url = os.path.join(base, "ink.js")
-        shutil.copyfile(location["ink"], ink_url)
-
-        # write out the ink html file
-        data = {"config": config, "location": location, "ink_url": "ink.js"}
-        story_path = os.path.join(base, "ink.html")
-        render(INK, story_path, data)
 
 def build_nodes(config, locations, nodes):
     for name, node in nodes.items():
         base = "build/nodes/%s" % node["key"]
         os.makedirs(base)
 
-        # copy the ink files to the node
-        ink_url = os.path.join(base, "ink.js")
-        shutil.copyfile(node["ink"], ink_url)
-
-        # write out the ink html file
-        data = {"config": config, "node": node, "ink_url": "ink.js"}
-        story_path = os.path.join(base, "ink.html")
-        render(INK, story_path, data)
+        # build the ink files
+        build_ink(node["ink"], os.path.join(base, "ink.json"))
 
         # write node's information
-        story_url = os.path.join("nodes", node["key"], "ink.html")
-        data = {"type": "node", "name": name, "ink": ink_url, "story": story_url}
+        ink = "nodes/%s/ink.json" % node["key"]
+        data = {"type": "node", "name": node["name"], "ink": ink}
         write_json(os.path.join(base, "data.json"), data)
 
         # write places you can go from the node
@@ -111,6 +106,7 @@ def build_common(config, locations):
     shutil.copytree(os.path.join(BASE_PATH, "scripts"), "build/scripts")
     shutil.copytree(os.path.join(BASE_PATH, "css"), "build/css")
     shutil.copy(os.path.join(template_path(), "reset.html"), "build")
+    shutil.copy(os.path.join(template_path(), "ink.html"), "build")
     render(MAIN, "build/index.html", {"config": config})
     render(EXPLORE, "build/explore.html", {"config": config})
 

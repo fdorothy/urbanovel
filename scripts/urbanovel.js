@@ -5,17 +5,6 @@ const initial_game = {
 
 var urb_game = initial_game
 
-function urb_go_home(delay) {
-  setTimeout(() => {
-    console.log(window.location.hostname)
-    window.location.href = "http://localhost:9080/index.html"
-  }, delay)
-}
-
-function urb_main() {
-  console.log('main!')
-}
-
 function urb_init_game() {
   urb_game = initial_game
 }
@@ -36,7 +25,8 @@ function urb_fill_history() {
   const history_div = document.getElementsByClassName("urb-history")[0]
   urb_game.history.forEach(node => {
     const story_div = document.createElement("div")
-    story_div.innerHTML = "<h2>" + node.name + "</h2><p>Click <a href=" + node["story"] + ">here</a> to read"
+    const link = urb_ink_link(node)
+    story_div.innerHTML = "<h2>" + node.name + "</h2><p>Click <a href=" + link + ">here</a> to read"
     history_div.appendChild(story_div)
   })
 }
@@ -53,8 +43,16 @@ function urb_fetch_json(url) {
   )
 }
 
-function urb_fetch_node(key) {
-  return urb_fetch_json("nodes" + "/" + key + "/data.json")
+function urb_fetch_node(node) {
+  return urb_fetch_json("nodes" + "/" + node + "/data.json")
+}
+
+function urb_fetch_location(location) {
+  return urb_fetch_json("locations" + "/" + location + "/data.json")
+}
+
+function urb_fetch_next(location, current_node) {
+  return urb_fetch_json("nodes" + "/" + current_node + "/" + location + "/data.json")
 }
 
 function urb_push_history(key) {
@@ -92,71 +90,53 @@ function urb_set_text(id, text) {
 const urb_set_status = (text) => urb_set_text("urb-status", text)
 const urb_set_header = (text) => urb_set_text("urb-header", text)
 
-const urb_node_story = (nodename) => 'nodes/' + nodename + '/ink.html'
-
-function urb_show_intro() {
-  urb_set_header("New Game")
-  urb_set_status("Welcome to the game. There are QR codes scattered around for this game. If you find the next location then an 'explore' link will appear. Here's an explore link to get you started. Good luck.")
-}
-
-function urb_show_found_something() {
-  urb_set_header("Oh? What is this...")
-  urb_set_status("You appeared to have found something new! Click explore to see what it is, or you can read it later the game's home screen")
-}
-
-const urb_show_nothing = () => window.location.href = "/locations/unknown/ink.html"
-
-function urb_show_location(location) {
-  const path = "/locations/" + location + "/ink.js"
-  fetch(path)
-    .then((response) => {
-        if (!response.ok) {
-          urb_show_nothing()
-        } else {
-          const path = "/locations/" + location + "/ink.html"
-          window.location.href = path
-        }
-    })
-    .catch(err => urb_show_nothing())
-}
-
-function urb_show_node(location, node) {
-  const path = "nodes" + "/" + node + "/" + location + "/data.json"
-  urb_fetch_json(path)
-    .then(json => {
-      console.log("got data from exploring: " + json)
-      if (json["next"]) {
-        urb_push_history(json["next"])
-          .then(node => window.location.href = node["story"])
-      } else {
-        urb_show_location(location)
-      }
-    })
-    .catch(err => urb_show_location(location))
-}
-
-function urb_explore() {
+function urb_get_and_clear_location() {
   const queryString = window.location.search.substring(1);
   const urlParams = new URLSearchParams(queryString);
   const location = urlParams.get("location")
   window.history.replaceState({}, "Urban Novel", "index.html")
-  if (!urb_valid_location(location)) {
-    urb_show_nothing()
-    return
-  }
+  return location
+}
 
+function urb_explore_node(location, current_node) {
+  return urb_fetch_next(location, current_node)
+    .then(json => {
+      if (json["next"]) {
+        return urb_push_history(json["next"])
+      } else {
+        return urb_fetch_location(location)
+          .catch(err => urb_fetch_location("unknown"))
+      }
+    })
+    .catch(err => urb_fetch_location(location))
+}
+
+function urb_explore() {
+  const location = urb_get_and_clear_location()
+  if (!urb_valid_location(location)) {
+    return urb_fetch_location("unknown")
+  }
+  
   let current_node = urb_game["node"]
   if (current_node == null) {
-    // new game, no location needed
-    console.log("new game")
-    urb_push_history("start")
-      .then(node => window.location.href = node["story"])
-  } else {
-    if (location) {
-      urb_show_node(location, current_node)
-    } else {
-      console.log("no location passed in")
-      urb_show_nothing()
-    }
+    return urb_push_history("start")
   }
+
+  return urb_explore_node(location, current_node)
+}
+
+function urb_play_story(ink_url, player) {
+  urb_fetch_json(ink_url).then(json => player(json))
+}
+
+function urb_ink_link(data) {
+  return "ink.html?data=" + btoa(JSON.stringify(data))
+}
+
+function urb_show_ink(data) {
+  window.location.replace(urb_ink_link(data))
+}
+
+function urb_delay(fun) {
+  setTimeout(fun, 1000)
 }
