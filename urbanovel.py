@@ -6,6 +6,7 @@ import shutil
 import pystache
 import pyqrcode
 import subprocess
+import hashlib
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -53,6 +54,20 @@ def get_location_key(locations, name):
 
 def get_node_key(nodes, name):
     return nodes[name]["key"]
+
+def hash_name(config, name):
+    return hashlib.sha1(config["salt"].encode() + name.encode()).hexdigest()
+
+def _generate_keys(config, objs):
+    for name, obj in objs.items():
+        if obj.get("hide", True):
+            obj["key"] = hash_name(config, name)
+        else:
+            obj["key"] = name
+
+def generate_keys(config, nodes, locations):
+    _generate_keys(config, locations)
+    _generate_keys(config, nodes)
 
 def build_locations(config, locations):
     os.makedirs("build/locations")
@@ -120,6 +135,7 @@ if __name__ == '__main__':
     locations = get_json(config["locations"])
     nodes = get_json(config["nodes"])
     shutil.rmtree("build", True)
+    generate_keys(config, nodes, locations)
     build_locations(config, locations)
     build_nodes(config, locations, nodes)
     build_common(config, locations)

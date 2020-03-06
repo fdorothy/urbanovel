@@ -1,42 +1,37 @@
 {
   "lobby": {
-    "key": "1",
     "name": "The Lobby",
     "description": "The office park lobby",
     "ink": "locations/lobby.ink"
   },
   "recroom": {
-    "key": "2",
     "name": "Recreation Room",
     "description": "The recreation room",
     "ink": "locations/recroom.ink"
   },
   "business_card": {
-    "key": "3",
     "name": "Business Card",
     "description": "A business card laying next to a recently murdered man",
     "ink": "locations/business_card.ink"
   },
   "office": {
-    "key": "4",
     "name": "Parasol, inc. office",
     "description": "An office belonging to Parasol, inc",
     "ink": "locations/office.ink"
   },
   "helicopter": {
-    "key": "5",
     "name": "Helicopter Landing Pad",
     "description": "A helicopter landing pad on top of the office building",
     "ink": "locations/helicopter.ink"
   },
   "unknown": {
-    "key": "unknown",
+    "hide": false,
     "name": "Unknown location",
     "description": "...?",
     "ink": "locations/unknown.ink"
   },
   "help": {
-    "key": "help",
+    "hide": false,
     "name": "Help",
     "description": "Help documentation",
     "ink": "locations/help.ink"
