@@ -108,7 +108,7 @@ def build_qrcode_image(config, location):
     url = config["domain"] + '/explore.html?location=%s' % location["key"]
     qr = pyqrcode.create(url)
     qr.svg("build/images/qrcodes/%s.svg" % location["key"], scale=4)
-    return "/images/qrcodes/%s.svg"
+    return "images/qrcodes/%s.svg"
 
 def build_qrcodes(config, locations):
     os.makedirs("build/images/qrcodes")
