@@ -15,18 +15,18 @@
     "ink": "locations/business_card.ink"
   },
   "office": {
-    "name": "Parasol, inc. office",
+    "name": "Parasol, inc",
     "description": "An office belonging to Parasol, inc",
     "ink": "locations/office.ink"
   },
   "helicopter": {
-    "name": "Helicopter Landing Pad",
+    "name": "Helicopter",
     "description": "A helicopter landing pad on top of the office building",
     "ink": "locations/helicopter.ink"
   },
   "unknown": {
     "hide": false,
-    "name": "Unknown location",
+    "name": "Unknown",
     "description": "...?",
     "ink": "locations/unknown.ink"
   },

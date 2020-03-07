@@ -6,20 +6,24 @@
   </head>
 
 
-  <div class="outerContainer">
+  <div>
     {{#partials}}{{&nav}}{{/partials}}
-    <div id="story" class="container">
-      {{#config}}
-      <div class="header">
-        <h1 id="urb-header">{{name}}</h1>
-        <h2 class="byline">QR Codes for each location</h2>
-      </div>
-      {{/config}}
+    {{#config}}
+    <div class="header">
+      <h1 id="urb-header">{{name}}</h1>
+      <h2 class="byline">QR Codes for each location</h2>
+    </div>
+    {{/config}}
+    <div>
       {{#locations}}
       <div class="urb-location">
-        <p>{{name}}</p>
+        <h1>{{name}}</h1>
         <a href="explore.html?location={{key}}"><img src="/images/qrcodes/{{key}}.svg"/></a>
-        <p>{{description}}</p>
+        <h2 class="urb-description">{{description}}</h2>
+        
+        {{#config}}
+        <h2 class="urb-contact">{{contact}}</h2>
+        {{/config}}
       </div>
       {{/locations}}
     </div>
