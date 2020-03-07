@@ -1,6 +1,6 @@
 {
   "name": "Urban Murder Mystery",
-  "domain": "http://localhost:9080",
+  "domain": "https://fdorothy.github.io/urbanovel",
   "contact": "@redmountainman1",
   "locations": "locations.json",
   "nodes": "nodes.json",
