@@ -42,7 +42,7 @@ EXPLORE = template("explore.html")
 
 def build_ink(src, dst):
     subprocess.run(["inklecate", src])
-    shutil.copyfile(src + ".json", dst)
+    shutil.move(src + ".json", dst)
 
 def write_json(dst, data):
     f = open(dst, "w")
