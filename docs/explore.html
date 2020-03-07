@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script type="text/javascript" src="/scripts/urbanovel.js"></script>
+    <link rel="stylesheet" href="/css/urbanovel.css">
+    <link rel="stylesheet" href="/css/ink.css">
+  </head>
+
+  <div class="outerContainer">
+    <h3 class="written-in-ink">
+  <a href="index.html">home</a> | <a href="qrcodes.html">locations</a> | <a href="reset.html">reset game</a> | <a href="explore.html?location=help">help</a>
+</h3>
+
+    <div id="story" class="container">
+      <div class="header">
+        <h1>Urban Murder Mystery</h1>
+        <h2 class="byline" id="urb-header">Exploring...</h2>
+      </div>
+    </div>
+  </div>
+  <script>
+    urb_load_config()
+    urb_explore().then(data => {
+      urb_delay(() => {
+        if (data) {
+          urb_show_ink(data)
+        }
+      })
+    })
+  </script>
+</html>

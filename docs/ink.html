@@ -1,0 +1,40 @@
+﻿<html>
+  <head>
+    <script type="text/javascript" src="/scripts/urbanovel.js"></script>
+    <script type="text/javascript" src="/scripts/ink/ink.js"></script>
+    <script type="text/javascript" src="/scripts/ink/main.js"></script>
+    <link rel="stylesheet" href="/css/ink.css">
+    <link rel="stylesheet" href="/css/urbanovel.css">
+  </head>
+
+  <div class="outerContainer">
+    <h3 class="written-in-ink">
+  <a href="index.html">home</a> | <a href="qrcodes.html">locations</a> | <a href="reset.html">reset game</a> | <a href="explore.html?location=help">help</a>
+</h3>
+
+    <div id="story" class="container">
+      <div class="header">
+        <h1>Urban Murder Mystery</h1>
+        <h2 class="byline" id="urb-header">Loading...</h2>
+      </div>
+    </div>
+  </div>
+  <script>
+    const qs = window.location.search
+    const p = new URLSearchParams(qs)
+    const data = JSON.parse(atob(p.get('data')))
+    urb_fetch_json(data["ink"]).then((ink) => {
+      urb_delay(() => {
+        urb_set_header(data["name"])
+        const {removeAll} = play_story(ink, () => {
+          removeAll("p")
+          removeAll("img")
+          urb_set_header("Back to the journal...")
+          urb_delay(() => {
+            window.location = "index.html"
+          })
+        })
+      })
+    })
+  </script>
+</html>

@@ -1,0 +1,43 @@
+.urb-location-link {
+    display: none;
+}
+
+.urb-visited .urb-location-link {
+    display: initial;
+}
+
+.urb-hidden {
+    display: none;
+}
+
+.urb-location {
+    margin: 5px;
+    display: inline-block;
+    border: 1px solid;
+    padding: 5px;
+    width: 360px;
+    page-break-inside: avoid;
+}
+
+.urb-location h1 {
+}
+
+.urb-location .urb-description {
+    display: none;
+}
+
+.urb-location img {
+    width: 196px;
+}
+
+@media print {
+    .header {
+        display: none;
+    }
+}
+
+@media print {
+    h3.written-in-ink {
+        display: none;
+    }
+}
