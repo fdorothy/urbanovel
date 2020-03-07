@@ -1,98 +1,99 @@
-This is an Urban Novel framework.
+# About
 
-An urban novel is a novel that requires the reader to travel around to get new pieces of the story. This is done by the author putting up QR codes in various places, and providing hints in the novel about where the new pieces of the story may be.
+This is an Urban Novel framework for ink (https://www.inklestudios.com/ink/).
 
-The content is statically hosted with each part of the story containing a random UUID in the path. There's some extra JS that we insert into pages so that the story location and new hints can be obtained.
+An urban novel is a book that requires the reader to travel around to get new pieces of the story. This is done by the author putting up QR codes in various places, and providing hints to the reader about where the new pieces of the story may be.
 
-Here's how the zones are defined:
+The content is statically hosted with each part of the story containing a random UUID in the path. There's some extra JS that will traverse the story graph as new QR codes are found. You should be able to take a build and throw it up on some static hosting site, like netlify, for free and paste QR codes around.
 
-#+BEGIN_SRC js
+# Usage
+
+```
+$ cd /path/to/my/urban/novel
+
+$ ls
+config.json locations locations.json nodes.json story
+```
+
+Open up 'config.json'.
+
+ - domain: set this to wherever you will host
+ - contact: update this with the contact info you want to appear below QR codes
+ - salt: set this to something secret-ish so that it's hard to cheat
+
+Next, build the site:
+
+```
+$ urbanovel.py
+
+$ ls
+build config.json locations locations.json nodes.json story
+
+$ ls build/
+css explore.html images index.html ink.html locations nodes qrcodes.html reset.html scripts
+```
+
+Now, upload this somewhere or just serve it up from localhost:9080. You can click on the QR codes on the 'locations' to simulate a QR code scan.
+
+# Writing a Story
+
+There are two main components to building these stories: locations and nodes.
+
+## Locations
+
+A location represents a single QR code. It ties a location in the real world into your fictional story world.
+
+Each location is listed in the locations.json file. There are a few generic locations, like 'help' and 'unknown'. We'll talk about those later. Here's two locations from the example:
+
+```js
 {
-  "fountain": {
-    "info": {
-      "name": "Goat Fountain",
-      "description": "A mysterious fountain...",
-      "icon": "zones/fountain/fountain.png"
-    }
-    "story": {
-      "uuid": "1",
-      "path": "zones/fountain/story",
-    },
-    "hint": {
-      "uuid": "1h",
-      "path": "zones/fountain/hint"
-    }
+  "lobby": {
+    "name": "The Lobby",
+    "description": "The office park lobby",
+    "ink": "locations/lobby.ink"
   },
-  "house": {
-    "info": {
-      "name": "Abandoned House",
-      "description": "A house where no one sleeps",
-      "icon": "zones/house/house.png"
-    }
-    "story": {
-      "uuid": "2",
-      "path": "zones/house/story",
-    },
-    "hint": {
-      "uuid": "2h",
-      "path": "zones/house/hint"
-    }
+  "recroom": {
+    "name": "Recreation Room",
+    "description": "The recreation room",
+    "ink": "locations/recroom.ink"
   }
 }
-#+END_SRC
+```
 
-These zones get built out into stories in html. You can use anything, but I recommend using ink to build the html. https://www.inklestudios.com/ink/
+Locations must have a .ink file associated with them. These ink files are used when a reader visits a location that isn't currently relevant to the story. The ink file should contain generic information about the location since users can revisit nodes that may not having anything to do with the story at the point in time.
 
-Here's how the directory structure is laid out:
+## Nodes
 
-#+BEGIN_SRC bash
-config.json
-zones.json
-zones/fountain/fountain.png
-zones/fountain/hint/hint.html
-zones/fountain/story/index.html
-zones/house/house.png
-zones/house/hint/index.html
-zones/house/story/index.html
-#+END_SRC
+Nodes defines the story. You can think of it like a big state machine where each state is a 'node' and each arrow is a 'location'. Let's take a look at the first few lines of the example story.json file:
 
-When this is compiled Urban Novel will make a 'build' directory like this:
-
-#+BEGIN_SRC bash
-build/index.html
-build/js/urbanovel.js
-build/hint/1/index.html
-build/hint/2/index.html
-build/story/1/index.html
-build/story/2/index.html
-build/cheat.html
-build/qrcodes/fountain.png
-build/qrcodes/house.png
-#+END_SRC
-
-When the user scans a URL we will go to that zones' story. There will be some client-side JS that stores the game state.
-
-#+BEGIN_SRC js
-{
-  hints: {
-    fountain: "hint/1h",
-    house: "hint/2h"
+```js
+  "start": {
+    "hide": false,
+    "ink": "story/intro.ink",
+    "name": "Introduction",
+    "next": [
+      {
+        "location": "recroom",
+        "node": "search_rec"
+      }
+    ]
   },
-  story: {
-    fountain: null,
-    house: "story/1"
-  }
-}
-#+END_SRC
+  "search_rec": {
+    "ink": "story/search_rec.ink",
+    "name": "Searching the Recreation Room",
+    "next": [
+      {
+        "location": "business_card",
+        "node": "find_card"
+      }
+    ]
+  },
+  ...
+```
 
-The config will look something like this:
+We always need a 'start' node. The urban novel code will jump right into the story at the 'start' node when someone scans a QR code for the first time. It's important that this node is not hidden (set hide = false), and that its key is 'start', otherwise it won't be possible for anyone to start the story!
 
-#+BEGIN_SRC 
-{
-  name: "Underground River",
-  domain: "undergroundriver.com",
-  contact: "@redmountainman1"
-  config: "config.json",
-  zones: "zones.json"
-}  
-#+END_SRC
+The 'hide' parameter defaults to true. This means we do top secret hashing of that node's files, making it nearly impossible to cheat without knowing the location QR codes.
+
+The 'next' parameter is a list of possible places you can go from that node. If you visit those locations then you will move on to the next 'node'. Both nodes and locations can be reused in this graph, but watch out for infinite loops.
+
