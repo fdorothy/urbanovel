@@ -174,3 +174,33 @@ p.choice a {
 .dark .end {
     color: white;
 }
+
+/** for mobile **/
+@media only screen and (max-device-width: 960px) {
+    h1 {
+        font-size: 38pt;
+    }
+
+    h2 {
+        font-size: 30pt;
+    }
+
+    p {
+        font-size: 30pt;
+    }
+
+    h3.written-in-ink {
+        font-size: 30pt;
+    }
+
+    p.choice a {
+        font-size: 30pt;
+    }
+
+    .container {
+        max-width: unset;
+        width: 100%;
+    }
+}
+/** end for mobile **/
+
