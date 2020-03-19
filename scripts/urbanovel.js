@@ -138,5 +138,5 @@ function urb_show_ink(data) {
 }
 
 function urb_delay(fun) {
-  setTimeout(fun, 1000)
+  setTimeout(fun, 500)
 }

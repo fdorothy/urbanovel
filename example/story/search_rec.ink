@@ -23,4 +23,4 @@ It appears to be a man in his 20s, wearing a Good People Brewing shirt and blue 
 
 A flash of metal catches your eye from underneath the pool table.
 
- * [Hmm...] -> options
+ * [Done] -> DONE

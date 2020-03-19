@@ -1,5 +1,14 @@
+-> helicopter
+
+== helicopter ==
+
 You are standing on the helicopter landing pad for the office park.
 
-Not much going on up here.
+ * [Investigate] -> investigate
+ * Leave -> DONE
+
+== investigate ==
+
+You're enjoying the view, but not much going on up here.
 
  * Leave -> DONE

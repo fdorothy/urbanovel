@@ -26,12 +26,14 @@
   },
   "unknown": {
     "hide": false,
+    "hideqr": true,
     "name": "Unknown",
     "description": "...?",
     "ink": "locations/unknown.ink"
   },
   "help": {
     "hide": false,
+    "hideqr": true,
     "name": "Help",
     "description": "Help documentation",
     "ink": "locations/help.ink"

@@ -114,12 +114,18 @@ def build_qrcodes(config, locations):
     os.makedirs("build/images/qrcodes")
     location_data = []
     for key, location in locations.items():
-        extras = {
-            "domain": config["domain"]
-        }
-        data = dict(location, **extras)
-        location_data.append(data)
-        build_qrcode_image(config, location)
+        if location.get("hideqr", False):
+            print("no qr code for " + key)
+            pass
+        else:
+            print("qr code for " + key)
+            extras = {
+                "domain": config["domain"],
+                "hideqr": False
+            }
+            data = dict(location, **extras)
+            location_data.append(data)
+            build_qrcode_image(config, location)
     render(QRCODES, "build/qrcodes.html", {"locations": location_data, "config": config})
 
 def build_common(config, locations):
