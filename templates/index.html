@@ -12,6 +12,7 @@
       <div class="header">
         <h1 id="urb-header">{{name}}</h1>
         <h2 class="byline">Your old journal entries...</h2>
+        <p>Previous stories appear on this page. Read through them for hints to find the next QR code to scan, and continue your story.</p>
       </div>
       <div class="urb-history" />
     </div>
@@ -20,6 +21,12 @@
 
   <script>
     urb_load_config()
-    urb_fill_history()
+    console.log(urb_game)
+    if (urb_game.history.length === 0) {
+      console.log('redirecting')
+      urb_delay(() => window.location = "explore.html")
+    } else {
+      urb_fill_history()
+    }
   </script>
 </html>
