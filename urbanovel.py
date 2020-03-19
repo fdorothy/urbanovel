@@ -31,9 +31,7 @@ def render(template, dst, data):
     f.write(result)
     f.close()
 
-PARTIALS = {
-    'nav': pystache.render(template("partials/nav.html"), {})
-}
+PARTIALS = {}
 QRCODES = template("qrcodes.html")
 INDEX = template("index.html")
 RESET = template("reset.html")
@@ -140,6 +138,7 @@ if __name__ == '__main__':
     config = get_json("config.json")
     locations = get_json(config["locations"])
     nodes = get_json(config["nodes"])
+    PARTIALS['nav'] = pystache.render(template("partials/nav.html"), config)
     shutil.rmtree("build", True)
     generate_keys(config, nodes, locations)
     build_locations(config, locations)

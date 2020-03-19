@@ -4,5 +4,6 @@
   "contact": "@redmountainman1",
   "locations": "locations.json",
   "nodes": "nodes.json",
+  "debug": false,
   "salt": "ilikecookies"
 }  

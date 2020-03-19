@@ -1,1 +1,1 @@
-{"hide": false, "name": "Help", "description": "Help documentation", "ink": "locations/help/ink.json", "key": "help"}
+{"hide": false, "hideqr": true, "name": "Help", "description": "Help documentation", "ink": "locations/help/ink.json", "key": "help"}
