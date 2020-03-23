@@ -6,6 +6,12 @@ An urban novel is a book that requires the reader to travel around to get new pi
 
 The content is statically hosted with each part of the story containing a random UUID in the path. There's some extra JS that will traverse the story graph as new QR codes are found. You should be able to take a build and throw it up on some static hosting site, like netlify, for free and paste QR codes around.
 
+# Example Game
+
+Here's an example game: https://fdorothy.github.io/urbanovel/qrcodes.html
+
+All of the example game files are in the 'examples' directory in this git repo, and the build is in 'docs'.
+
 # Usage
 
 ```
